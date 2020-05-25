@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace epass.modeles
 {
-    public class ville
+    public class pays
     {
-        public int Id { set; get;}
-        public string Nom {set; get;}
-        public string pays_id { set; get; }
+        public int Id { set; get; }
+        public string Nom { set; get; }
     }
 }
