@@ -18,5 +18,5 @@ namespace epass.modeles
         public bool Enable { set; get; }
         public string Otp { set; get; }
         public string Indicatif { set; get; }
-}
+    }
 }

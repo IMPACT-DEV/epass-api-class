@@ -29,6 +29,9 @@ namespace epass
         {
             services.AddDbContext<CompteContext>(opt =>
                opt.UseInMemoryDatabase("CompteList"));
+
+            services.AddDbContext<AdminContext>(opt =>
+               opt.UseInMemoryDatabase("AdminList"));
             services.AddControllers();
         }
 
