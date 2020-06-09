@@ -9,6 +9,7 @@ namespace epass.models
 {
     public class ModelsContext : DbContext
     {
+        
         public ModelsContext(DbContextOptions<ModelsContext> options)
             : base(options)
         {
