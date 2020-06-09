@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class AdminRolesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public AdminRolesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/AdminRoles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<AdminRole>>> GetAdminRole()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.AdminRole.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/AdminRoles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<AdminRole>> GetAdminRole(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var adminRole = await _context.AdminRole.FindAsync(id);
 
-            if (compte == null)
+            if (adminRole == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return adminRole;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/AdminRoles/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutAdminRole(Guid id, AdminRole adminRole)
         {
-            if (id != compte.Id)
+            if (id != adminRole.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(adminRole).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!AdminRoleExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/AdminRoles
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<AdminRole>> PostAdminRole(AdminRole adminRole)
         {
-            _context.Compte.Add(compte);
+            _context.AdminRole.Add(adminRole);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetAdminRole", new { id = adminRole.Id }, adminRole);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/AdminRoles/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<AdminRole>> DeleteAdminRole(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var adminRole = await _context.AdminRole.FindAsync(id);
+            if (adminRole == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.AdminRole.Remove(adminRole);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return adminRole;
         }
 
-        private bool CompteExists(Guid id)
+        private bool AdminRoleExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.AdminRole.Any(e => e.Id == id);
         }
     }
 }

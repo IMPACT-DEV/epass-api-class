@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class PieceIdentitesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public PieceIdentitesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/PieceIdentites
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<PieceIdentite>>> GetPieceIdentite()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.PieceIdentite.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/PieceIdentites/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<PieceIdentite>> GetPieceIdentite(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var pieceIdentite = await _context.PieceIdentite.FindAsync(id);
 
-            if (compte == null)
+            if (pieceIdentite == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return pieceIdentite;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/PieceIdentites/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutPieceIdentite(Guid id, PieceIdentite pieceIdentite)
         {
-            if (id != compte.Id)
+            if (id != pieceIdentite.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(pieceIdentite).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!PieceIdentiteExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/PieceIdentites
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<PieceIdentite>> PostPieceIdentite(PieceIdentite pieceIdentite)
         {
-            _context.Compte.Add(compte);
+            _context.PieceIdentite.Add(pieceIdentite);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetPieceIdentite", new { id = pieceIdentite.Id }, pieceIdentite);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/PieceIdentites/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<PieceIdentite>> DeletePieceIdentite(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var pieceIdentite = await _context.PieceIdentite.FindAsync(id);
+            if (pieceIdentite == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.PieceIdentite.Remove(pieceIdentite);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return pieceIdentite;
         }
 
-        private bool CompteExists(Guid id)
+        private bool PieceIdentiteExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.PieceIdentite.Any(e => e.Id == id);
         }
     }
 }

@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class VillesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public VillesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/Villes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<Ville>>> GetVille()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.Ville.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/Villes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<Ville>> GetVille(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var ville = await _context.Ville.FindAsync(id);
 
-            if (compte == null)
+            if (ville == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return ville;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/Villes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutVille(Guid id, Ville ville)
         {
-            if (id != compte.Id)
+            if (id != ville.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(ville).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!VilleExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/Villes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<Ville>> PostVille(Ville ville)
         {
-            _context.Compte.Add(compte);
+            _context.Ville.Add(ville);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetVille", new { id = ville.Id }, ville);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/Villes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<Ville>> DeleteVille(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var ville = await _context.Ville.FindAsync(id);
+            if (ville == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.Ville.Remove(ville);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return ville;
         }
 
-        private bool CompteExists(Guid id)
+        private bool VilleExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.Ville.Any(e => e.Id == id);
         }
     }
 }

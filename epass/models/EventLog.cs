@@ -9,11 +9,11 @@ namespace epass.modeles
 {
     public class EventLog
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public Guid Id { set; get; }
         public DateTime EventLogDate { set; get; }
         public string Event { set; get; }
-        public int AdminId { set; get; }
+        public Guid AdminId { set; get; }
 
         //navigation Admin
         [ForeignKey(nameof(AdminId))]

@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class DevisesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public DevisesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/Devises
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<Devise>>> GetDevise()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.Devise.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/Devises/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<Devise>> GetDevise(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var devise = await _context.Devise.FindAsync(id);
 
-            if (compte == null)
+            if (devise == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return devise;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/Devises/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutDevise(Guid id, Devise devise)
         {
-            if (id != compte.Id)
+            if (id != devise.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(devise).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!DeviseExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/Devises
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<Devise>> PostDevise(Devise devise)
         {
-            _context.Compte.Add(compte);
+            _context.Devise.Add(devise);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetDevise", new { id = devise.Id }, devise);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/Devises/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<Devise>> DeleteDevise(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var devise = await _context.Devise.FindAsync(id);
+            if (devise == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.Devise.Remove(devise);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return devise;
         }
 
-        private bool CompteExists(Guid id)
+        private bool DeviseExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.Devise.Any(e => e.Id == id);
         }
     }
 }

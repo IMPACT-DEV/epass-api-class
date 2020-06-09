@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class TypeOperationsController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public TypeOperationsController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/TypeOperations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<TypeOperation>>> GetTypeOperation()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.TypeOperation.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/TypeOperations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<TypeOperation>> GetTypeOperation(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var typeOperation = await _context.TypeOperation.FindAsync(id);
 
-            if (compte == null)
+            if (typeOperation == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return typeOperation;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/TypeOperations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutTypeOperation(Guid id, TypeOperation typeOperation)
         {
-            if (id != compte.Id)
+            if (id != typeOperation.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(typeOperation).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!TypeOperationExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/TypeOperations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<TypeOperation>> PostTypeOperation(TypeOperation typeOperation)
         {
-            _context.Compte.Add(compte);
+            _context.TypeOperation.Add(typeOperation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetTypeOperation", new { id = typeOperation.Id }, typeOperation);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/TypeOperations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<TypeOperation>> DeleteTypeOperation(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var typeOperation = await _context.TypeOperation.FindAsync(id);
+            if (typeOperation == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.TypeOperation.Remove(typeOperation);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return typeOperation;
         }
 
-        private bool CompteExists(Guid id)
+        private bool TypeOperationExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.TypeOperation.Any(e => e.Id == id);
         }
     }
 }

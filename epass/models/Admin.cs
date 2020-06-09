@@ -8,7 +8,7 @@ namespace epass.modeles
 {
     public class Admin
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public Guid Id { set; get; }
         public string Username { set; get; }
         public string Password { set; get; }

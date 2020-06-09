@@ -8,7 +8,7 @@ namespace epass.modeles
 {
     public class Compte
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public Guid Id { set; get; }
         public string Telephone { set; get; }
         public string Password { set; get; }

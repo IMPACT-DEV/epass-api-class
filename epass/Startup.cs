@@ -27,11 +27,9 @@ namespace epass
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CompteContext>(opt =>
+            services.AddDbContext<ModelsContext>(opt =>
                opt.UseInMemoryDatabase("CompteList"));
 
-            services.AddDbContext<AdminContext>(opt =>
-               opt.UseInMemoryDatabase("AdminList"));
             services.AddControllers();
         }
 

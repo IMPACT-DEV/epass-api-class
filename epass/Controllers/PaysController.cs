@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class PaysController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public PaysController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/Pays
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<Pays>>> GetPays()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.Pays.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/Pays/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<Pays>> GetPays(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var pays = await _context.Pays.FindAsync(id);
 
-            if (compte == null)
+            if (pays == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return pays;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/Pays/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutPays(Guid id, Pays pays)
         {
-            if (id != compte.Id)
+            if (id != pays.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(pays).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!PaysExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/Pays
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<Pays>> PostPays(Pays pays)
         {
-            _context.Compte.Add(compte);
+            _context.Pays.Add(pays);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetPays", new { id = pays.Id }, pays);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/Pays/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<Pays>> DeletePays(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var pays = await _context.Pays.FindAsync(id);
+            if (pays == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.Pays.Remove(pays);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return pays;
         }
 
-        private bool CompteExists(Guid id)
+        private bool PaysExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.Pays.Any(e => e.Id == id);
         }
     }
 }

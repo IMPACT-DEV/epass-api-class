@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class UserPreferencesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public UserPreferencesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/UserPreferences
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<UserPreference>>> GetUserPreference()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.UserPreference.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/UserPreferences/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<UserPreference>> GetUserPreference(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var userPreference = await _context.UserPreference.FindAsync(id);
 
-            if (compte == null)
+            if (userPreference == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return userPreference;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/UserPreferences/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutUserPreference(Guid id, UserPreference userPreference)
         {
-            if (id != compte.Id)
+            if (id != userPreference.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(userPreference).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!UserPreferenceExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/UserPreferences
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<UserPreference>> PostUserPreference(UserPreference userPreference)
         {
-            _context.Compte.Add(compte);
+            _context.UserPreference.Add(userPreference);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetUserPreference", new { id = userPreference.Id }, userPreference);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/UserPreferences/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<UserPreference>> DeleteUserPreference(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var userPreference = await _context.UserPreference.FindAsync(id);
+            if (userPreference == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.UserPreference.Remove(userPreference);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return userPreference;
         }
 
-        private bool CompteExists(Guid id)
+        private bool UserPreferenceExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.UserPreference.Any(e => e.Id == id);
         }
     }
 }

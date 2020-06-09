@@ -12,9 +12,9 @@ namespace epass.modeles
     {
         [Key]
         public Guid Id { set; get; }
-        public int AdminId { set; get; }
+        public Guid AdminId { set; get; }
         public string Langue { set; get; }
-        public int DeviseId { set; get; }
+        public Guid DeviseId { set; get; }
         public int Pin { set; get; }
         public Boolean TouchId { set; get; }
 

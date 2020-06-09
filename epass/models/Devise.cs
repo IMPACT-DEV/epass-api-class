@@ -10,7 +10,7 @@ namespace epass.modeles
 {
     public class Devise
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public Guid Id { set; get; }
         public string Libelle { set; get; }
         public string CodeIso {set;get;}

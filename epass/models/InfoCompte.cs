@@ -1,3 +1,4 @@
+using epass.models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace epass.modeles
 
     public class InfoCompte
     {
-         [System.ComponentModel.DataAnnotations.Key] 
+         [Key] 
          public Guid Id {set;get;}
          public string Nom {set;get;}
          public string Prenom {set;get;}
@@ -18,13 +19,13 @@ namespace epass.modeles
          public byte[] PhotoProfil {set;get;}
          public DateTime Naissance {set;get;}
          public string PieceIdentite {set;get;}
-         public Enum Sexe {set;get;}
+         public Sexe Sexe {set;get;}
          public string Adresse {set;get;}
-         public string VilleId { set; get; }
-         public string PaysId { set; get; }
+         public Guid VilleId { set; get; }
+         public Guid PaysId { set; get; }
          public string Email { set; get; }
          public string Nationalite {set;get;}
-         public int CompteId {set;get;}
+         public Guid CompteId {set;get;}
          public string Activite {set;get;}
 
 

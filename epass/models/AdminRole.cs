@@ -9,20 +9,21 @@ using System.Threading.Tasks;
 namespace epass.modeles {
     public class AdminRole
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public Guid Id { set; get; }
+        public Guid AdminId { set; get; }
+        public Guid RoleId { set; get; }
+        public string Valeur { set; get; }
 
         //navigation Admin
         [ForeignKey(nameof(AdminId))]
         public Admin Admin { set; get; }
-        public int AdminId { set; get; }
+
+
 
         //navigation Role
         [ForeignKey(nameof(RoleId))]
         public Role Role { set; get; }
-        public int RoleId { set; get;}
-
-        public string Valeur { set; get; }
         
     }
 }

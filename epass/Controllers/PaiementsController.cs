@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class PaiementsController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public PaiementsController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/Paiements
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<Paiement>>> GetPaiement()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.Paiement.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/Paiements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<Paiement>> GetPaiement(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var paiement = await _context.Paiement.FindAsync(id);
 
-            if (compte == null)
+            if (paiement == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return paiement;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/Paiements/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutPaiement(Guid id, Paiement paiement)
         {
-            if (id != compte.Id)
+            if (id != paiement.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(paiement).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!PaiementExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/Paiements
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<Paiement>> PostPaiement(Paiement paiement)
         {
-            _context.Compte.Add(compte);
+            _context.Paiement.Add(paiement);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetPaiement", new { id = paiement.Id }, paiement);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/Paiements/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<Paiement>> DeletePaiement(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var paiement = await _context.Paiement.FindAsync(id);
+            if (paiement == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.Paiement.Remove(paiement);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return paiement;
         }
 
-        private bool CompteExists(Guid id)
+        private bool PaiementExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.Paiement.Any(e => e.Id == id);
         }
     }
 }

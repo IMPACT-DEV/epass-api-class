@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public RolesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/Roles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<Role>>> GetRole()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.Role.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/Roles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<Role>> GetRole(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var role = await _context.Role.FindAsync(id);
 
-            if (compte == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return role;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/Roles/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutRole(Guid id, Role role)
         {
-            if (id != compte.Id)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!RoleExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/Roles
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<Role>> PostRole(Role role)
         {
-            _context.Compte.Add(compte);
+            _context.Role.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction("GetRole", new { id = role.Id }, role);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/Roles/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<Role>> DeleteRole(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var role = await _context.Role.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.Role.Remove(role);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return role;
         }
 
-        private bool CompteExists(Guid id)
+        private bool RoleExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.Role.Any(e => e.Id == id);
         }
     }
 }

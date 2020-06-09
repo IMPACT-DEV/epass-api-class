@@ -13,7 +13,7 @@ namespace epass.modeles
         public Guid Id { set; get; }
         public string Nom { set; get; }
         //navigation
-        public int PaysId { set; get; }
+        public Guid PaysId { set; get; }
 
         [ForeignKey(nameof(PaysId))]
         public Pays Pays { set; get; }

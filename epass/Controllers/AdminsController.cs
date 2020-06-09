@@ -12,48 +12,48 @@ namespace epass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComptesController : ControllerBase
+    public class AdminsController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public ComptesController(ModelsContext context)
+        public AdminsController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Comptes
+        // GET: api/Admins
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
+        public async Task<ActionResult<IEnumerable<Admin>>> GetAdmin()
         {
-            return await _context.Compte.ToListAsync();
+            return await _context.Admin.ToListAsync();
         }
 
-        // GET: api/Comptes/5
+        // GET: api/Admins/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Compte>> GetCompte(Guid id)
+        public async Task<ActionResult<Admin>> GetAdmin(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
+            var admin = await _context.Admin.FindAsync(id);
 
-            if (compte == null)
+            if (admin == null)
             {
                 return NotFound();
             }
 
-            return compte;
+            return admin;
         }
 
-        // PUT: api/Comptes/5
+        // PUT: api/Admins/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
+        public async Task<IActionResult> PutAdmin(Guid id, Admin admin)
         {
-            if (id != compte.Id)
+            if (id != admin.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(compte).State = EntityState.Modified;
+            _context.Entry(admin).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompteExists(id))
+                if (!AdminExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Comptes
+        // POST: api/Admins
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
+        public async Task<ActionResult<Admin>> PostAdmin(Admin admin)
         {
-            _context.Compte.Add(compte);
+            _context.Admin.Add(admin);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
+            return CreatedAtAction(nameof(GetAdmin), new { id = admin.Id }, admin);
         }
 
-        // DELETE: api/Comptes/5
+        // DELETE: api/Admins/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
+        public async Task<ActionResult<Admin>> DeleteAdmin(Guid id)
         {
-            var compte = await _context.Compte.FindAsync(id);
-            if (compte == null)
+            var admin = await _context.Admin.FindAsync(id);
+            if (admin == null)
             {
                 return NotFound();
             }
 
-            _context.Compte.Remove(compte);
+            _context.Admin.Remove(admin);
             await _context.SaveChangesAsync();
 
-            return compte;
+            return admin;
         }
 
-        private bool CompteExists(Guid id)
+        private bool AdminExists(Guid id)
         {
-            return _context.Compte.Any(e => e.Id == id);
+            return _context.Admin.Any(e => e.Id == id);
         }
     }
 }

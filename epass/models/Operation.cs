@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace epass.modeles
         public string Source { set; get; }
         public string Destination { set; get; }
         public decimal Montant { set; get; }
-        public int AdminId { set; get; }
+        public Guid AdminId { set; get; }
 
 
         //navigation Admin
