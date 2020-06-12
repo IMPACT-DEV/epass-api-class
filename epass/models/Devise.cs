@@ -15,5 +15,5 @@ namespace epass.modeles
         public string Libelle { set; get; }
         public string CodeIso {set;get;}
         public string Symbole { set; get; }
-}
+    }
 }
