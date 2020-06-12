@@ -37,6 +37,10 @@ namespace epass
 
             services.AddControllers();
 
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);      
+
             services.AddMvc();
 
             services.AddSwaggerGen(c =>
