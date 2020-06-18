@@ -15,7 +15,7 @@ namespace epass.modeles
         public Guid AdminId { set; get; }
         public string Langue { set; get; }
         public Guid DeviseId { set; get; }
-        public int Pin { set; get; }
+        public string Pin { set; get; }
         public Boolean TouchId { set; get; }
 
         //navigation Admin

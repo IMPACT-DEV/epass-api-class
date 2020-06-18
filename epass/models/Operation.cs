@@ -13,7 +13,7 @@ namespace epass.modeles
         [Key]
         public Guid Id { set; get; }
         public string Libelle { set; get; }
-        public int TypeOperationId { set; get; }
+        public Guid TypeOperationId { set; get; }
         public DateTime OperationDate { set; get; }
         public DateTime OperationValeurDate { set; get; }
         public string Source { set; get; }
@@ -25,6 +25,11 @@ namespace epass.modeles
         //navigation Admin
         [ForeignKey(nameof(AdminId))]
         public Admin Admin { set; get; }
+
+        //navigation TypeOperationId
+        [ForeignKey(nameof(TypeOperationId))]
+        public TypeOperation TypeOperation { set; get; }
+
 
     }
 }
