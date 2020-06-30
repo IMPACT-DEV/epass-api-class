@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
     public class UserPreferencesController : ControllerBase
     {

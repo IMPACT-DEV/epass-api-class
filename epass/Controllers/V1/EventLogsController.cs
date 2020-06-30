@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class AdminRolesController : ControllerBase
+    public class EventLogsController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public AdminRolesController(ModelsContext context)
+        public EventLogsController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/AdminRoles
+        // GET: api/EventLogs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AdminRole>>> GetAdminRole()
+        public async Task<ActionResult<IEnumerable<EventLog>>> GetEventLog()
         {
-            return await _context.AdminRole.ToListAsync();
+            return await _context.EventLog.ToListAsync();
         }
 
-        // GET: api/AdminRoles/5
+        // GET: api/EventLogs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AdminRole>> GetAdminRole(Guid id)
+        public async Task<ActionResult<EventLog>> GetEventLog(Guid id)
         {
-            var adminRole = await _context.AdminRole.FindAsync(id);
+            var eventLog = await _context.EventLog.FindAsync(id);
 
-            if (adminRole == null)
+            if (eventLog == null)
             {
                 return NotFound();
             }
 
-            return adminRole;
+            return eventLog;
         }
 
-        // PUT: api/AdminRoles/5
+        // PUT: api/EventLogs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdminRole(Guid id, AdminRole adminRole)
+        public async Task<IActionResult> PutEventLog(Guid id, EventLog eventLog)
         {
-            if (id != adminRole.Id)
+            if (id != eventLog.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(adminRole).State = EntityState.Modified;
+            _context.Entry(eventLog).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AdminRoleExists(id))
+                if (!EventLogExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/AdminRoles
+        // POST: api/EventLogs
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<AdminRole>> PostAdminRole(AdminRole adminRole)
+        public async Task<ActionResult<EventLog>> PostEventLog(EventLog eventLog)
         {
-            _context.AdminRole.Add(adminRole);
+            _context.EventLog.Add(eventLog);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAdminRole", new { id = adminRole.Id }, adminRole);
+            return CreatedAtAction("GetEventLog", new { id = eventLog.Id }, eventLog);
         }
 
-        // DELETE: api/AdminRoles/5
+        // DELETE: api/EventLogs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AdminRole>> DeleteAdminRole(Guid id)
+        public async Task<ActionResult<EventLog>> DeleteEventLog(Guid id)
         {
-            var adminRole = await _context.AdminRole.FindAsync(id);
-            if (adminRole == null)
+            var eventLog = await _context.EventLog.FindAsync(id);
+            if (eventLog == null)
             {
                 return NotFound();
             }
 
-            _context.AdminRole.Remove(adminRole);
+            _context.EventLog.Remove(eventLog);
             await _context.SaveChangesAsync();
 
-            return adminRole;
+            return eventLog;
         }
 
-        private bool AdminRoleExists(Guid id)
+        private bool EventLogExists(Guid id)
         {
-            return _context.AdminRole.Any(e => e.Id == id);
+            return _context.EventLog.Any(e => e.Id == id);
         }
     }
 }

@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class VillesController : ControllerBase
+    public class PaiementsController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public VillesController(ModelsContext context)
+        public PaiementsController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Villes
+        // GET: api/Paiements
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ville>>> GetVille()
+        public async Task<ActionResult<IEnumerable<Paiement>>> GetPaiement()
         {
-            return await _context.Ville.ToListAsync();
+            return await _context.Paiement.ToListAsync();
         }
 
-        // GET: api/Villes/5
+        // GET: api/Paiements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ville>> GetVille(Guid id)
+        public async Task<ActionResult<Paiement>> GetPaiement(Guid id)
         {
-            var ville = await _context.Ville.FindAsync(id);
+            var paiement = await _context.Paiement.FindAsync(id);
 
-            if (ville == null)
+            if (paiement == null)
             {
                 return NotFound();
             }
 
-            return ville;
+            return paiement;
         }
 
-        // PUT: api/Villes/5
+        // PUT: api/Paiements/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVille(Guid id, Ville ville)
+        public async Task<IActionResult> PutPaiement(Guid id, Paiement paiement)
         {
-            if (id != ville.Id)
+            if (id != paiement.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(ville).State = EntityState.Modified;
+            _context.Entry(paiement).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!VilleExists(id))
+                if (!PaiementExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Villes
+        // POST: api/Paiements
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Ville>> PostVille(Ville ville)
+        public async Task<ActionResult<Paiement>> PostPaiement(Paiement paiement)
         {
-            _context.Ville.Add(ville);
+            _context.Paiement.Add(paiement);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVille", new { id = ville.Id }, ville);
+            return CreatedAtAction("GetPaiement", new { id = paiement.Id }, paiement);
         }
 
-        // DELETE: api/Villes/5
+        // DELETE: api/Paiements/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Ville>> DeleteVille(Guid id)
+        public async Task<ActionResult<Paiement>> DeletePaiement(Guid id)
         {
-            var ville = await _context.Ville.FindAsync(id);
-            if (ville == null)
+            var paiement = await _context.Paiement.FindAsync(id);
+            if (paiement == null)
             {
                 return NotFound();
             }
 
-            _context.Ville.Remove(ville);
+            _context.Paiement.Remove(paiement);
             await _context.SaveChangesAsync();
 
-            return ville;
+            return paiement;
         }
 
-        private bool VilleExists(Guid id)
+        private bool PaiementExists(Guid id)
         {
-            return _context.Ville.Any(e => e.Id == id);
+            return _context.Paiement.Any(e => e.Id == id);
         }
     }
 }

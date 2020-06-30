@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class DevisesController : ControllerBase
+    public class PieceIdentitesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public DevisesController(ModelsContext context)
+        public PieceIdentitesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Devises
+        // GET: api/PieceIdentites
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Devise>>> GetDevise()
+        public async Task<ActionResult<IEnumerable<PieceIdentite>>> GetPieceIdentite()
         {
-            return await _context.Devise.ToListAsync();
+            return await _context.PieceIdentite.ToListAsync();
         }
 
-        // GET: api/Devises/5
+        // GET: api/PieceIdentites/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Devise>> GetDevise(Guid id)
+        public async Task<ActionResult<PieceIdentite>> GetPieceIdentite(Guid id)
         {
-            var devise = await _context.Devise.FindAsync(id);
+            var pieceIdentite = await _context.PieceIdentite.FindAsync(id);
 
-            if (devise == null)
+            if (pieceIdentite == null)
             {
                 return NotFound();
             }
 
-            return devise;
+            return pieceIdentite;
         }
 
-        // PUT: api/Devises/5
+        // PUT: api/PieceIdentites/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDevise(Guid id, Devise devise)
+        public async Task<IActionResult> PutPieceIdentite(Guid id, PieceIdentite pieceIdentite)
         {
-            if (id != devise.Id)
+            if (id != pieceIdentite.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(devise).State = EntityState.Modified;
+            _context.Entry(pieceIdentite).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DeviseExists(id))
+                if (!PieceIdentiteExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Devises
+        // POST: api/PieceIdentites
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Devise>> PostDevise(Devise devise)
+        public async Task<ActionResult<PieceIdentite>> PostPieceIdentite(PieceIdentite pieceIdentite)
         {
-            _context.Devise.Add(devise);
+            _context.PieceIdentite.Add(pieceIdentite);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDevise", new { id = devise.Id }, devise);
+            return CreatedAtAction("GetPieceIdentite", new { id = pieceIdentite.Id }, pieceIdentite);
         }
 
-        // DELETE: api/Devises/5
+        // DELETE: api/PieceIdentites/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Devise>> DeleteDevise(Guid id)
+        public async Task<ActionResult<PieceIdentite>> DeletePieceIdentite(Guid id)
         {
-            var devise = await _context.Devise.FindAsync(id);
-            if (devise == null)
+            var pieceIdentite = await _context.PieceIdentite.FindAsync(id);
+            if (pieceIdentite == null)
             {
                 return NotFound();
             }
 
-            _context.Devise.Remove(devise);
+            _context.PieceIdentite.Remove(pieceIdentite);
             await _context.SaveChangesAsync();
 
-            return devise;
+            return pieceIdentite;
         }
 
-        private bool DeviseExists(Guid id)
+        private bool PieceIdentiteExists(Guid id)
         {
-            return _context.Devise.Any(e => e.Id == id);
+            return _context.PieceIdentite.Any(e => e.Id == id);
         }
     }
 }

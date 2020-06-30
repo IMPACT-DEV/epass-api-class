@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class PaysController : ControllerBase
+    public class DevisesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public PaysController(ModelsContext context)
+        public DevisesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Pays
+        // GET: api/Devises
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pays>>> GetPays()
+        public async Task<ActionResult<IEnumerable<Devise>>> GetDevise()
         {
-            return await _context.Pays.ToListAsync();
+            return await _context.Devise.ToListAsync();
         }
 
-        // GET: api/Pays/5
+        // GET: api/Devises/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pays>> GetPays(Guid id)
+        public async Task<ActionResult<Devise>> GetDevise(Guid id)
         {
-            var pays = await _context.Pays.FindAsync(id);
+            var devise = await _context.Devise.FindAsync(id);
 
-            if (pays == null)
+            if (devise == null)
             {
                 return NotFound();
             }
 
-            return pays;
+            return devise;
         }
 
-        // PUT: api/Pays/5
+        // PUT: api/Devises/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPays(Guid id, Pays pays)
+        public async Task<IActionResult> PutDevise(Guid id, Devise devise)
         {
-            if (id != pays.Id)
+            if (id != devise.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(pays).State = EntityState.Modified;
+            _context.Entry(devise).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PaysExists(id))
+                if (!DeviseExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/Pays
+        // POST: api/Devises
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Pays>> PostPays(Pays pays)
+        public async Task<ActionResult<Devise>> PostDevise(Devise devise)
         {
-            _context.Pays.Add(pays);
+            _context.Devise.Add(devise);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPays", new { id = pays.Id }, pays);
+            return CreatedAtAction("GetDevise", new { id = devise.Id }, devise);
         }
 
-        // DELETE: api/Pays/5
+        // DELETE: api/Devises/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Pays>> DeletePays(Guid id)
+        public async Task<ActionResult<Devise>> DeleteDevise(Guid id)
         {
-            var pays = await _context.Pays.FindAsync(id);
-            if (pays == null)
+            var devise = await _context.Devise.FindAsync(id);
+            if (devise == null)
             {
                 return NotFound();
             }
 
-            _context.Pays.Remove(pays);
+            _context.Devise.Remove(devise);
             await _context.SaveChangesAsync();
 
-            return pays;
+            return devise;
         }
 
-        private bool PaysExists(Guid id)
+        private bool DeviseExists(Guid id)
         {
-            return _context.Pays.Any(e => e.Id == id);
+            return _context.Devise.Any(e => e.Id == id);
         }
     }
 }

@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class PieceIdentitesController : ControllerBase
+    public class PaysController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public PieceIdentitesController(ModelsContext context)
+        public PaysController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/PieceIdentites
+        // GET: api/Pays
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PieceIdentite>>> GetPieceIdentite()
+        public async Task<ActionResult<IEnumerable<Pays>>> GetPays()
         {
-            return await _context.PieceIdentite.ToListAsync();
+            return await _context.Pays.ToListAsync();
         }
 
-        // GET: api/PieceIdentites/5
+        // GET: api/Pays/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PieceIdentite>> GetPieceIdentite(Guid id)
+        public async Task<ActionResult<Pays>> GetPays(Guid id)
         {
-            var pieceIdentite = await _context.PieceIdentite.FindAsync(id);
+            var pays = await _context.Pays.FindAsync(id);
 
-            if (pieceIdentite == null)
+            if (pays == null)
             {
                 return NotFound();
             }
 
-            return pieceIdentite;
+            return pays;
         }
 
-        // PUT: api/PieceIdentites/5
+        // PUT: api/Pays/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPieceIdentite(Guid id, PieceIdentite pieceIdentite)
+        public async Task<IActionResult> PutPays(Guid id, Pays pays)
         {
-            if (id != pieceIdentite.Id)
+            if (id != pays.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(pieceIdentite).State = EntityState.Modified;
+            _context.Entry(pays).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PieceIdentiteExists(id))
+                if (!PaysExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/PieceIdentites
+        // POST: api/Pays
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<PieceIdentite>> PostPieceIdentite(PieceIdentite pieceIdentite)
+        public async Task<ActionResult<Pays>> PostPays(Pays pays)
         {
-            _context.PieceIdentite.Add(pieceIdentite);
+            _context.Pays.Add(pays);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPieceIdentite", new { id = pieceIdentite.Id }, pieceIdentite);
+            return CreatedAtAction("GetPays", new { id = pays.Id }, pays);
         }
 
-        // DELETE: api/PieceIdentites/5
+        // DELETE: api/Pays/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PieceIdentite>> DeletePieceIdentite(Guid id)
+        public async Task<ActionResult<Pays>> DeletePays(Guid id)
         {
-            var pieceIdentite = await _context.PieceIdentite.FindAsync(id);
-            if (pieceIdentite == null)
+            var pays = await _context.Pays.FindAsync(id);
+            if (pays == null)
             {
                 return NotFound();
             }
 
-            _context.PieceIdentite.Remove(pieceIdentite);
+            _context.Pays.Remove(pays);
             await _context.SaveChangesAsync();
 
-            return pieceIdentite;
+            return pays;
         }
 
-        private bool PieceIdentiteExists(Guid id)
+        private bool PaysExists(Guid id)
         {
-            return _context.PieceIdentite.Any(e => e.Id == id);
+            return _context.Pays.Any(e => e.Id == id);
         }
     }
 }

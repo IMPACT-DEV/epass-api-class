@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class EventLogsController : ControllerBase
+    public class TypeOperationsController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public EventLogsController(ModelsContext context)
+        public TypeOperationsController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/EventLogs
+        // GET: api/TypeOperations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventLog>>> GetEventLog()
+        public async Task<ActionResult<IEnumerable<TypeOperation>>> GetTypeOperation()
         {
-            return await _context.EventLog.ToListAsync();
+            return await _context.TypeOperation.ToListAsync();
         }
 
-        // GET: api/EventLogs/5
+        // GET: api/TypeOperations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EventLog>> GetEventLog(Guid id)
+        public async Task<ActionResult<TypeOperation>> GetTypeOperation(Guid id)
         {
-            var eventLog = await _context.EventLog.FindAsync(id);
+            var typeOperation = await _context.TypeOperation.FindAsync(id);
 
-            if (eventLog == null)
+            if (typeOperation == null)
             {
                 return NotFound();
             }
 
-            return eventLog;
+            return typeOperation;
         }
 
-        // PUT: api/EventLogs/5
+        // PUT: api/TypeOperations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEventLog(Guid id, EventLog eventLog)
+        public async Task<IActionResult> PutTypeOperation(Guid id, TypeOperation typeOperation)
         {
-            if (id != eventLog.Id)
+            if (id != typeOperation.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(eventLog).State = EntityState.Modified;
+            _context.Entry(typeOperation).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventLogExists(id))
+                if (!TypeOperationExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/EventLogs
+        // POST: api/TypeOperations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<EventLog>> PostEventLog(EventLog eventLog)
+        public async Task<ActionResult<TypeOperation>> PostTypeOperation(TypeOperation typeOperation)
         {
-            _context.EventLog.Add(eventLog);
+            _context.TypeOperation.Add(typeOperation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEventLog", new { id = eventLog.Id }, eventLog);
+            return CreatedAtAction("GetTypeOperation", new { id = typeOperation.Id }, typeOperation);
         }
 
-        // DELETE: api/EventLogs/5
+        // DELETE: api/TypeOperations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<EventLog>> DeleteEventLog(Guid id)
+        public async Task<ActionResult<TypeOperation>> DeleteTypeOperation(Guid id)
         {
-            var eventLog = await _context.EventLog.FindAsync(id);
-            if (eventLog == null)
+            var typeOperation = await _context.TypeOperation.FindAsync(id);
+            if (typeOperation == null)
             {
                 return NotFound();
             }
 
-            _context.EventLog.Remove(eventLog);
+            _context.TypeOperation.Remove(typeOperation);
             await _context.SaveChangesAsync();
 
-            return eventLog;
+            return typeOperation;
         }
 
-        private bool EventLogExists(Guid id)
+        private bool TypeOperationExists(Guid id)
         {
-            return _context.EventLog.Any(e => e.Id == id);
+            return _context.TypeOperation.Any(e => e.Id == id);
         }
     }
 }

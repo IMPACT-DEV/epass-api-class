@@ -7,53 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using epass.modeles;
 using epass.models;
+using epass.Contracts;
 
 namespace epass.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Posts.ControllersRoute)]
     [ApiController]
-    public class InfoComptesController : ControllerBase
+    public class ComptesController : ControllerBase
     {
         private readonly ModelsContext _context;
 
-        public InfoComptesController(ModelsContext context)
+        public ComptesController(ModelsContext context)
         {
             _context = context;
         }
 
-        // GET: api/InfoComptes
+        // GET: api/Comptes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InfoCompte>>> GetInfoCompte()
+        public async Task<ActionResult<IEnumerable<Compte>>> GetCompte()
         {
-            return await _context.InfoCompte.ToListAsync();
+            return await _context.Compte.ToListAsync();
         }
 
-        // GET: api/InfoComptes/5
+        // GET: api/Comptes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<InfoCompte>> GetInfoCompte(Guid id)
+        public async Task<ActionResult<Compte>> GetCompte(Guid id)
         {
-            var infoCompte = await _context.InfoCompte.FindAsync(id);
+            var compte = await _context.Compte.FindAsync(id);
 
-            if (infoCompte == null)
+            if (compte == null)
             {
                 return NotFound();
             }
 
-            return infoCompte;
+            return compte;
         }
 
-        // PUT: api/InfoComptes/5
+        // PUT: api/Comptes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInfoCompte(Guid id, InfoCompte infoCompte)
+        public async Task<IActionResult> PutCompte(Guid id, Compte compte)
         {
-            if (id != infoCompte.Id)
+            if (id != compte.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(infoCompte).State = EntityState.Modified;
+            _context.Entry(compte).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace epass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InfoCompteExists(id))
+                if (!CompteExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +75,37 @@ namespace epass.Controllers
             return NoContent();
         }
 
-        // POST: api/InfoComptes
+        // POST: api/Comptes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<InfoCompte>> PostInfoCompte(InfoCompte infoCompte)
+        public async Task<ActionResult<Compte>> PostCompte(Compte compte)
         {
-            _context.InfoCompte.Add(infoCompte);
+            _context.Compte.Add(compte);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetInfoCompte", new { id = infoCompte.Id }, infoCompte);
+            return CreatedAtAction("GetCompte", new { id = compte.Id }, compte);
         }
 
-        // DELETE: api/InfoComptes/5
+        // DELETE: api/Comptes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<InfoCompte>> DeleteInfoCompte(Guid id)
+        public async Task<ActionResult<Compte>> DeleteCompte(Guid id)
         {
-            var infoCompte = await _context.InfoCompte.FindAsync(id);
-            if (infoCompte == null)
+            var compte = await _context.Compte.FindAsync(id);
+            if (compte == null)
             {
                 return NotFound();
             }
 
-            _context.InfoCompte.Remove(infoCompte);
+            _context.Compte.Remove(compte);
             await _context.SaveChangesAsync();
 
-            return infoCompte;
+            return compte;
         }
 
-        private bool InfoCompteExists(Guid id)
+        private bool CompteExists(Guid id)
         {
-            return _context.InfoCompte.Any(e => e.Id == id);
+            return _context.Compte.Any(e => e.Id == id);
         }
     }
 }
