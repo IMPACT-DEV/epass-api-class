@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace epass.modeles
+namespace epass.models
 {
     public class Role
     {

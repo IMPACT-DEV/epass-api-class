@@ -1,15 +1,16 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace epass.modeles
+namespace epass.models
 {
     public class TypeOperation
     {
         [Key]
-        public Guid Id {set;get;}
-        public string Libelle {set;get;}
+        public Guid Id { set; get; }
+
+        public string Libelle { set; get; }
     }
 }

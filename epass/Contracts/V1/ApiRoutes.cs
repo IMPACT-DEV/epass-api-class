@@ -17,7 +17,7 @@ namespace epass.Contracts
             public const string ControllersRoute = Base + "/[controller]";
         }
 
-        public static class identity
+        public static class Identity
         {
             public const string Login = Base + "/identity/login";
 

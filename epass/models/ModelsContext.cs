@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using epass.modeles;
+using epass.models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace epass.models
 {
-    public class ModelsContext : DbContext
+    public class ModelsContext : IdentityDbContext
     {
         
         public ModelsContext(DbContextOptions<ModelsContext> options)
@@ -26,8 +27,19 @@ namespace epass.models
         public DbSet<Pays> Pays { get; set; }
         public DbSet<PieceIdentite> PieceIdentite { get; set; }
         public DbSet<Role> Role { get; set; }
-        public DbSet<TypeOperation> TypeOperation { get; set; }
+        public DbSet<TypeOperation> TypeOperationRole { get; set; }
         public DbSet<UserPreference> UserPreference { get; set; }
         public DbSet<Ville> Ville { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>().Property(p => p.Id).ValueGeneratedOnAdd();
+        }
+
+
+        public DbSet<epass.models.TypeOperation> TypeOperation { get; set; }
     }
 }

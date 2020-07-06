@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using epass.models;
-using epass.modeles;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -54,6 +53,8 @@ namespace epass
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthorization();
 
 
             app.UseAuthentication();

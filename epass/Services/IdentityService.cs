@@ -13,13 +13,14 @@ namespace epass.Services
 {
     public class IdentityService : IIdentityService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly JwtSettings _jwtSettings;
+        public readonly UserManager<IdentityUser> _userManager;
+        public readonly JwtSettings _jwtSettings;
         
         
-        public IdentityService()
+        public IdentityService(UserManager<IdentityUser> userManager, JwtSettings jwtSettings)
         {
-
+            _userManager = userManager;
+            _jwtSettings = jwtSettings;
         }
 
         public async Task<AuthenticationResult> RegisterAsync(string email, string password)
@@ -42,7 +43,7 @@ namespace epass.Services
 
             var createdUser = await _userManager.CreateAsync(newUser, password);
 
-            if (createdUser.Succeeded)
+            if (!createdUser.Succeeded)
             {
                 return new AuthenticationResult
                 {

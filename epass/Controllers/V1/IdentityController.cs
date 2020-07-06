@@ -20,22 +20,22 @@ namespace epass.Controllers.V1
         }
 
 
-        [HttpPost(ApiRoutes.identity.Register)]
+        [HttpPost(ApiRoutes.Identity.Register)]
         public async Task<IActionResult> Register([FromBody] UserRegistrationRequest request)
         {
-            var AuthResponse = await _identityService.RegisterAsync(request.Email, request.Password);
+            var authResponse = await _identityService.RegisterAsync(request.Email, request.Password);
 
-            if (!AuthResponse.Success)
+            if (!authResponse.Success)
             {
                 return BadRequest(new AuthFailedResponse
                 {
-                    Errors = AuthResponse.Errors
+                    Errors = authResponse.Errors
                 });
             }
 
             return Ok(new AuthSuccessResponse 
             { 
-                Token = AuthResponse.Token
+                Token = authResponse.Token
             });
         }
     }

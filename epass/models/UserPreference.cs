@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace epass.modeles
+namespace epass.models
 {
 
     public class UserPreference

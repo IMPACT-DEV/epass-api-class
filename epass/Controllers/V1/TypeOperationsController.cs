@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using epass.modeles;
 using epass.models;
-using epass.Contracts;
 
-namespace epass.Controllers
+namespace epass.Controllers.V1
 {
-    [Route(ApiRoutes.Posts.ControllersRoute)]
+    [Route("api/[controller]")]
     [ApiController]
     public class TypeOperationsController : ControllerBase
     {

@@ -1,11 +1,8 @@
-﻿using epass.models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using epass.models;
+using Microsoft.AspNetCore.Identity;
 
 namespace epass.Installers
 {
@@ -13,10 +10,12 @@ namespace epass.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ModelsContext>(options =>
-            {
-                options.UseNpgsql(configuration.GetConnectionString("MyConnection"));
-            });
+            services.AddEntityFrameworkNpgsql().AddDbContext<ModelsContext>(opt =>
+        opt.UseNpgsql(configuration.GetConnectionString("MyConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+               .AddEntityFrameworkStores<ModelsContext>();
+
 
             services.AddControllers();
             services.AddCors();
